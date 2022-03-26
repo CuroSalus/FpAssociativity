@@ -60,15 +60,15 @@ namespace FpAssociativity
 			for (int i = 0; i < size; i += 2)
 			{
 				double randomValue = randomProvider.NextDouble();
-				seed[i] = randomValue + offset;
-				seed[i + 1] = (-randomValue + offset);
+				seed[i] = offset + randomValue;
+				seed[i + 1] = -(offset + randomValue);
 			}
 
 			// Run accumulations.
 			for (int i = 0; i < NUM_TESTS; i++)
 			{
 				double[] values = FisherYates(randomProvider, seed);
-				double total = 0;
+				double total = offset;
 				for (int k = 0; k < size; k += 2)
 				{
 					total += values[k];
