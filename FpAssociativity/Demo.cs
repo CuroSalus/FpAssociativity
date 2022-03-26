@@ -11,22 +11,22 @@ namespace FpAssociativity
 		const int NUM_TESTS = 5;
 
 		/// <summary>
-		/// Performs five tests, running <paramref name="size"/> number of
+		/// Performs five tests, running <paramref name="operations"/> number of
 		/// operations, with an <paramref name="offset"/> away from zero.
 		/// </summary>
-		/// <param name="size">Number of operations to run.</param>
+		/// <param name="operations">Number of operations to run.</param>
 		/// <param name="offset">Offset from 0.</param>
 		/// <exception cref="ArgumentOutOfRangeException">
-		/// If either <paramref name="size"/> is less than 1
+		/// If either <paramref name="operations"/> is less than 1
 		/// or <paramref name="offset"/> is not an acceptable value.
 		/// </exception>
-		public static void Run(int size, double offset)
+		public static void Run(int operations, double offset)
 		{
-			if (size < 1)
+			if (operations < 1)
 			{
 				throw new ArgumentOutOfRangeException(
-					nameof(size),
-					size,
+					nameof(operations),
+					operations,
 					"Size must be greater than 1."
 				);
 			}
@@ -44,20 +44,20 @@ namespace FpAssociativity
 			}
 
 			// Perform even number of operations.
-			if (size % 2 == 1) size++;
+			if (operations % 2 == 1) operations++;
 			Random randomProvider = new();
 
 			Console.Clear();
 			Console.WriteLine(
-				$"Running tests (size: {size}, offset: {offset}){Environment.NewLine}"
+				$"Running tests (operations: {operations}, offset: {offset}){Environment.NewLine}"
 			);
 
 
 			double[] results = new double[NUM_TESTS];
-			double[] seed = new double[size];
+			double[] seed = new double[operations];
 
 			// Generate values.
-			for (int i = 0; i < size; i += 2)
+			for (int i = 0; i < operations; i += 2)
 			{
 				double randomValue = randomProvider.NextDouble();
 				seed[i] = offset + randomValue;
@@ -69,7 +69,7 @@ namespace FpAssociativity
 			{
 				double[] values = FisherYates(randomProvider, seed);
 				double total = offset;
-				for (int k = 0; k < size; k += 2)
+				for (int k = 0; k < operations; k += 2)
 				{
 					total += values[k];
 					total += values[k + 1];
